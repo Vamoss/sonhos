@@ -335,4 +335,9 @@ function init() {
     createDraggables(words);
 }
 
+// Previne o recarregamento da página ao arrastar o dedo na tela
+document.addEventListener('touchmove', function (event) {
+    event.preventDefault();
+}, { passive: false });
+
 Promise.all([loadWords(), startWebSocket()]).then(init);
