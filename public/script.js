@@ -160,71 +160,81 @@ function createDraggables(words) {
 }
 
 function makeDraggable(dragItem) {
-  dragItem.addEventListener('mousedown', startDrag);
-
-  function startDrag(e) {
-    if(stateManager.getCurrentState() !== states.IDLE)
+    dragItem.addEventListener('mousedown', startDrag);
+    dragItem.addEventListener('touchstart', startDrag);
+  
+    function startDrag(e) {
+      if (stateManager.getCurrentState() !== states.IDLE)
         return;
-
-    const startX = e.clientX - dragItem.offsetLeft;
-    const startY = e.clientY - dragItem.offsetTop;
-
-    dragItem.classList.add("dragging");
-
-    function moveDrag(e) {
-      dragItem.style.left = `${e.clientX - startX}px`;
-      dragItem.style.top = `${e.clientY - startY}px`;
-    }
-
-    function stopDrag() {
-      dragItem.classList.remove("dragging");
-
-      let snapped = false;
-      const dropAreas = document.querySelectorAll('.drop-area');
-      dropAreas.forEach((area, areaIndex) => {
-        const areaRect = area.getBoundingClientRect();
-        const dragRect = dragItem.getBoundingClientRect();
-        const distance = Math.sqrt(
-          Math.pow(areaRect.left + areaRect.width / 2 - (dragRect.left + dragRect.width / 2), 2) +
-          Math.pow(areaRect.top + areaRect.height / 2 - (dragRect.top + dragRect.height / 2), 2)
-        );
-
-        if (distance < 100 && area.getAttribute("data-occupied") === "false") {
-          dragItem.style.left = `${areaRect.left - container.getBoundingClientRect().left + dragAreaSize / 2 - draggableSize / 2}px`;
-          dragItem.style.top = `${areaRect.top - container.getBoundingClientRect().top + dragAreaSize / 2 - draggableSize / 2}px`;
-          area.setAttribute("data-occupied", "true");
-          dragItem.setAttribute("data-occupied-area", areaIndex);
-          selectedWords.add(dragItem.getAttribute("data-word"));
-          words[words.findIndex(word => word.palavra === dragItem.getAttribute("data-word"))].audio.play();
-          sendWords();
-          snapped = true;
-        }
-      });
-
-      if (!snapped) {
-        selectedWords.delete(dragItem.getAttribute("data-word"));
-        sendWords();
-        
-        const originalX = parseInt(dragItem.getAttribute("data-original-x"));
-        const originalY = parseInt(dragItem.getAttribute("data-original-y"));
-        dragItem.style.left = `${originalX}px`;
-        dragItem.style.top = `${originalY}px`;
-
-        if(dragItem.hasAttribute("data-occupied-area")) {
-          const areaIndex = dragItem.getAttribute("data-occupied-area");
-          dropAreas[areaIndex].setAttribute("data-occupied", "false");
-          dragItem.removeAttribute("data-occupied-area");
-        }
+  
+      const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+      const startX = clientX - dragItem.offsetLeft;
+      const startY = clientY - dragItem.offsetTop;
+  
+      dragItem.classList.add("dragging");
+  
+      function moveDrag(e) {
+        const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+        dragItem.style.left = `${clientX - startX}px`;
+        dragItem.style.top = `${clientY - startY}px`;
       }
-
-      document.removeEventListener('mousemove', moveDrag);
-      document.removeEventListener('mouseup', stopDrag);
+  
+      function stopDrag() {
+        dragItem.classList.remove("dragging");
+  
+        let snapped = false;
+        const dropAreas = document.querySelectorAll('.drop-area');
+        dropAreas.forEach((area, areaIndex) => {
+          const areaRect = area.getBoundingClientRect();
+          const dragRect = dragItem.getBoundingClientRect();
+          const distance = Math.sqrt(
+            Math.pow(areaRect.left + areaRect.width / 2 - (dragRect.left + dragRect.width / 2), 2) +
+            Math.pow(areaRect.top + areaRect.height / 2 - (dragRect.top + dragRect.height / 2), 2)
+          );
+  
+          if (distance < 100 && area.getAttribute("data-occupied") === "false") {
+            dragItem.style.left = `${areaRect.left - container.getBoundingClientRect().left + dragAreaSize / 2 - draggableSize / 2}px`;
+            dragItem.style.top = `${areaRect.top - container.getBoundingClientRect().top + dragAreaSize / 2 - draggableSize / 2}px`;
+            area.setAttribute("data-occupied", "true");
+            dragItem.setAttribute("data-occupied-area", areaIndex);
+            selectedWords.add(dragItem.getAttribute("data-word"));
+            words[words.findIndex(word => word.palavra === dragItem.getAttribute("data-word"))].audio.play();
+            sendWords();
+            snapped = true;
+          }
+        });
+  
+        if (!snapped) {
+          selectedWords.delete(dragItem.getAttribute("data-word"));
+          sendWords();
+  
+          const originalX = parseInt(dragItem.getAttribute("data-original-x"));
+          const originalY = parseInt(dragItem.getAttribute("data-original-y"));
+          dragItem.style.left = `${originalX}px`;
+          dragItem.style.top = `${originalY}px`;
+  
+          if (dragItem.hasAttribute("data-occupied-area")) {
+            const areaIndex = dragItem.getAttribute("data-occupied-area");
+            dropAreas[areaIndex].setAttribute("data-occupied", "false");
+            dragItem.removeAttribute("data-occupied-area");
+          }
+        }
+  
+        document.removeEventListener('mousemove', moveDrag);
+        document.removeEventListener('mouseup', stopDrag);
+        document.removeEventListener('touchmove', moveDrag);
+        document.removeEventListener('touchend', stopDrag);
+      }
+  
+      document.addEventListener('mousemove', moveDrag);
+      document.addEventListener('mouseup', stopDrag);
+      document.addEventListener('touchmove', moveDrag);
+      document.addEventListener('touchend', stopDrag);
     }
-
-    document.addEventListener('mousemove', moveDrag);
-    document.addEventListener('mouseup', stopDrag);
   }
-}
+  
 
 /**
  * LOADING
