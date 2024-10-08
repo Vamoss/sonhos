@@ -36,7 +36,10 @@ stateManager.setState(states.IDLE);
 /**
  * SOCKET
  */
-const socketUrl = "ws://localhost:3000";
+const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+const host = window.location.host;
+const socketUrl = `${protocol}//${host}`;
+
 let socket;
 const startWebSocket = () => {
     return new Promise((resolve, reject) => {
