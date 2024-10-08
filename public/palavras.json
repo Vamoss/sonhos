@@ -1,0 +1,22 @@
+[
+    { "codigo": "rfid_01", "palavra": "Paz", "audioUrl": "audios/palavras/paz.mp3" },
+    { "codigo": "rfid_02", "palavra": "Amor", "audioUrl": "audios/palavras/amor.mp3" },
+    { "codigo": "rfid_03", "palavra": "Natureza", "audioUrl": "audios/palavras/natureza.mp3" },
+    { "codigo": "rfid_04", "palavra": "Saúde", "audioUrl": "audios/palavras/saude.mp3" },
+    { "codigo": "rfid_05", "palavra": "Educação", "audioUrl": "audios/palavras/educacao.mp3" },
+    { "codigo": "rfid_06", "palavra": "Justiça social", "audioUrl": "audios/palavras/justica_social.mp3" },
+    { "codigo": "rfid_07", "palavra": "Coletividade", "audioUrl": "audios/palavras/coletividade.mp3" },
+    { "codigo": "rfid_08", "palavra": "Sustentabilidade", "audioUrl": "audios/palavras/sustentabilidade.mp3" },
+    { "codigo": "rfid_09", "palavra": "Diversidade", "audioUrl": "audios/palavras/diversidade.mp3" },
+    { "codigo": "rfid_10", "palavra": "Liberdade", "audioUrl": "audios/palavras/liberdade.mp3" },
+    { "codigo": "rfid_11", "palavra": "Cooperação", "audioUrl": "audios/palavras/cooperacao.mp3" },
+    { "codigo": "rfid_12", "palavra": "Memória", "audioUrl": "audios/palavras/memoria.mp3" },
+    { "codigo": "rfid_13", "palavra": "Segurança", "audioUrl": "audios/palavras/seguranca.mp3" },
+    { "codigo": "rfid_14", "palavra": "Bem estar", "audioUrl": "audios/palavras/bem_estar.mp3" },
+    { "codigo": "rfid_15", "palavra": "Prazer", "audioUrl": "audios/palavras/prazer.mp3" },
+    { "codigo": "rfid_16", "palavra": "Devaneio", "audioUrl": "audios/palavras/devaneio.mp3" },
+    { "codigo": "rfid_17", "palavra": "Soneca", "audioUrl": "audios/palavras/soneca.mp3" },
+    { "codigo": "rfid_18", "palavra": "Brincadeira", "audioUrl": "audios/palavras/brincadeira.mp3" },
+    { "codigo": "rfid_19", "palavra": "Cuidado", "audioUrl": "audios/palavras/cuidado.mp3" },
+    { "codigo": "rfid_20", "palavra": "Fé", "audioUrl": "audios/palavras/fe.mp3" }
+]
