@@ -234,6 +234,19 @@ function makeDraggable(dragItem) {
       document.addEventListener('touchend', stopDrag);
     }
   }
+
+/**
+ * AUDIO
+ */
+let audioContextUnlocked = false;
+document.addEventListener('touchend', function() {
+  if (!audioContextUnlocked) {
+    const context = new (window.AudioContext || window.webkitAudioContext)();
+    context.resume().then(() => {
+      audioContextUnlocked = true;
+    });
+  }
+}, { once: true });
   
 
 /**
@@ -307,6 +320,7 @@ const loadWords = () =>
             words.forEach((item, index) => {
                 //  console.log(`Código RFID: ${item.codigo}, Palavra: ${item.palavra}`);
                 words[index].audio = new Audio(item.audioUrl);
+                words[index].audio.preload = 'auto';
             });
             
             resolve();
