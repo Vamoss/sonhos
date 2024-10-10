@@ -17,10 +17,10 @@ body {
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 20px;
-    position: fixed;
-    top: 410px;
-    left: 410px;
-    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 360px;
+    left: 10px;
+    width: 760px;
     font-size: 24px;
     line-height: 32px;
     color: #FFF;

@@ -14,9 +14,7 @@
     { "codigo": "rfid_13", "palavra": "Segurança", "audioUrl": "audios/palavras/seguranca.mp3" },
     { "codigo": "rfid_14", "palavra": "Bem estar", "audioUrl": "audios/palavras/bem_estar.mp3" },
     { "codigo": "rfid_15", "palavra": "Prazer", "audioUrl": "audios/palavras/prazer.mp3" },
-    { "codigo": "rfid_16", "palavra": "Devaneio", "audioUrl": "audios/palavras/devaneio.mp3" },
-    { "codigo": "rfid_17", "palavra": "Soneca", "audioUrl": "audios/palavras/soneca.mp3" },
-    { "codigo": "rfid_18", "palavra": "Brincadeira", "audioUrl": "audios/palavras/brincadeira.mp3" },
-    { "codigo": "rfid_19", "palavra": "Cuidado", "audioUrl": "audios/palavras/cuidado.mp3" },
-    { "codigo": "rfid_20", "palavra": "Fé", "audioUrl": "audios/palavras/fe.mp3" }
+    { "codigo": "rfid_16", "palavra": "Brincadeira", "audioUrl": "audios/palavras/brincadeira.mp3" },
+    { "codigo": "rfid_17", "palavra": "Cuidado", "audioUrl": "audios/palavras/cuidado.mp3" },
+    { "codigo": "rfid_18", "palavra": "Fé", "audioUrl": "audios/palavras/fe.mp3" }
 ]

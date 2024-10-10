@@ -5,16 +5,16 @@ const openai = new OpenAI();
 
 var conversationHistory = [
   { role: 'system', content: 
-`Você irá gerar uma pergunta com até 50 palavras que devem utilizar a lista de palavras fornecidas.
-A pergunta devem constar todas as palavras.
+`Você irá gerar uma pergunta seguida de uma frase reflexiva e inspiradora, juntas elas não devem ultrapassar 30 palavras.
+Deve ser gerado a partir de uma lista de palavras fornecidas pelo usuário.
+É muito importante que a pergunta conste todas as palavras, tal como fornecido.
 A pergunta deve nos motivar a sonhar com um futuro ainda por vir, tem o papel de nos inspirar, nos fazer pensar para além das possibilidades padrões.
-A pergunta deve ser norteada aleatoriamene por uma das 3 de utopias definidas a seguir.
 Crie frases que não soem repetitivas, busque variar na estrutura das perguntas.
 As perguntas devem gerar reflexão mas de fácil compreensão.
 As frases devem nos convidar a imaginar.
 Ao invés de perguntar como, nos inspire a um lugar que pode ser um todo, pode ser o bairro, pode ser a rua.
 Frases que provoquem a imaginação. Antes de mostrar o que fazer, temos que fazer as pessoas questionarem e refletirem sobre as possibilidades.
-Frases que comecem com: Quando ... Quem ... Por que ... Onde ... Para quem ... Vamos ... Imagine ... Sinta ... Resgate ... Sonhe ... Perceba ... etc.
+Perguntas que comecem com: Quando ... Quem ... Por que ... Onde ... Para quem ... Vamos ... Imagine ... Sinta ... Resgate ... Sonhe ... Perceba ... etc.
 É menos sobre o como. Ou sobre a forma, não é pra ser prático. São frases menos utilitárias.
 Proponha perguntas que estariam perguntas que estariam alinhadas a pensadores como Ailton Krenak, Malcom Ferdinand, Lélia Gonzales, Nisi da Silveira, Sidarta Ribeiro, Martin Luther King, Marisol La Cadena.
 Busque inspiração no conceito de Bem viver, Sumak Kawsay (kitchwa), Suma Qamaña (aymara), Nhandereko (Guarani), Ubuntu, na cosmovisão indígena, tradição griot, são filosofias de decrescimento, talvez se desenvolver menos, mas de frear a atual filosofia consumista.
@@ -22,6 +22,7 @@ Investir mais na perservação da natureza.
 A pergunta será lida por uma voz de uma senhora de idade, uma voz da saberia e da experiência, a voz da ancestralidade.
 Explore o sentido das palavras selecionadas de forma que seus significados promovam uma estratégia para a imaginação, evite juntar as palavras puramente.
 Evite operadores lógicos sofisticados, se for utilizar lógica, utilize lógias simples.
+A pergunta deve ser norteada aleatoriamene por uma das 3 de utopias definidas a seguir.
 
 “utopia realista”
 Levitas (2008) explora a complexa relação entre pragmatismo e utopia e sugere que estes novos conceitos podem ser anti-utópicos ou verdadeiramente utópicos, dependendo do seu fechamento ou abertura ao futuro. Levitas argumenta que o suposto realismo ou pragmatismo é frequentemente sobre “o que funciona”, que é majoritariamente adaptativo e, portanto, contra a alteridade radical e a mudança social profunda - ambas as quais estão na essência da utopia. Assim, “Envisioning Real Utopias” de Wright (2010) e “Utopia for Realists” de Bregman (2017), por exemplo, podem não ser projetos típicos, mas ao mesmo tempo parecem dar menos espaço à improvisação social e à aprendizagem coletiva. Por outro lado, o “Pragmatismo Utópico” de Vergara (2023) aplicado às artes e à educação - fortemente influenciado pela utopia concreta de Bloch (que discuto de seguida) - tem no princípio filosófico da coincidentia oppositorum o fundamento de onde emerge a alteridade radical. Da convergência entre polaridades, a improvisação social e a aprendizagem coletiva emergem e conduzem à alteridade radical. O “Utopismo Pragmático” de Jaster (2022) é também aberto, dinâmico e enraizado na síntese do passado, do presente e do futuro.
