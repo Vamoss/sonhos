@@ -51,7 +51,7 @@ module.exports = async (text) => {
         const audioBuffer = Buffer.concat(chunks);
 
         const fileName = generateFileName(text, 40);
-        const audioURL = `audios/outputs/${fileName}.mp3`;
+        const audioURL = 'audios/outputs/' + fileName;
         const outputPath = path.join(__dirname, 'public', audioURL);
         fs.mkdirSync(path.dirname(outputPath), { recursive: true });
         fs.writeFileSync(outputPath, audioBuffer);
