@@ -318,7 +318,7 @@ const loadWords = () =>
             const response = await fetch('palavras.json'); 
             words = await response.json();
             words.forEach((item, index) => {
-                //  console.log(`Código RFID: ${item.codigo}, Palavra: ${item.palavra}`);
+                //  console.log(`Código RFID1: ${item.codigo1}, RFID2: ${item.codigo2}, Palavra: ${item.palavra}`);
                 words[index].audio = new Audio(item.audioUrl);
                 words[index].audio.preload = 'auto';
             });
