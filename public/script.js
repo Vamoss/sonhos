@@ -72,6 +72,12 @@ const startWebSocket = () => {
         socket.onclose = () => {
             console.log("Conexão WebSocket fechada.");
             appendMessage("Conexão encerrada.");
+            setTimeout(() => {
+                console.log("Tentando reconectar...");
+                startWebSocket()
+                    .then(() => console.log("Reconexão bem-sucedida."))
+                    .catch(() => console.error("Erro ao tentar reconectar."));
+            }, 500);
         };
     });
 }

@@ -30,7 +30,7 @@ wss.on('connection', (ws) => {
     console.log(`Mensagem recebida do cliente: ${message}`);
     const data = JSON.parse(message);
     if (data.type === 'wordUpdate') {
-      wss.broadcast(message);
+      broadcast(message);
     } else if(data.type === 'wordsConfirmed') {
       AI(message.toString()).then((response) => {
           TTS(response).then((audioURL) => {
@@ -39,7 +39,7 @@ wss.on('connection', (ws) => {
                   text: response,
                   audioURL: audioURL
               };
-              wss.broadcast(JSON.stringify(result));
+              broadcast(JSON.stringify(result));
           });
       });
     } else {
@@ -51,9 +51,13 @@ wss.on('connection', (ws) => {
 const arduino = new ArduinoConnection(SERIAL_PORT, BAUD_RATE);
 arduino.connect();
 arduino.on('data', (data) => {
-  wss.clients.forEach((client) => {
+  broadcast(data);
+});
+
+function broadcast(message) {
+  wss.clients.forEach(function each(client) {
     if (client.readyState === WebSocket.OPEN) {
       client.send(data);
     }
   });
-});
+}
