@@ -87,8 +87,11 @@ function sendMessage(message) {
 
 function sendWords() {
     if(selectedWords.size > 0) {
+        let dataToSend = {type: 'wordUpdate', words: Array.from(selectedWords)};
+        sendMessage(JSON.stringify(dataToSend));
         loading.start(() => {
-            sendMessage(Array.from(selectedWords).join(","));
+            dataToSend.type = 'wordsConfirmed';
+            sendMessage(JSON.stringify(dataToSend));
             stateManager.setState(states.WAITING);
         });
     }else{

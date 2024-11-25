@@ -28,16 +28,23 @@ wss.on('connection', (ws) => {
   console.log('WebSocket conectado');
   ws.on('message', (message) => {
     console.log(`Mensagem recebida do cliente: ${message}`);
-    AI(message.toString()).then((response) => {
-        TTS(response).then((audioURL) => {
-            console.log(`Pergunta gerada pela AI: ${response}`);
-            const result = {
-                text: response,
-                audioURL: audioURL
-            };
-            ws.send(JSON.stringify(result));
-        });
-    });
+    const data = JSON.parse(message);
+    if (data.type === 'wordUpdate') {
+      wss.broadcast(message);
+    } else if(data.type === 'wordsConfirmed') {
+      AI(message.toString()).then((response) => {
+          TTS(response).then((audioURL) => {
+              console.log(`Pergunta gerada pela AI: ${response}`);
+              const result = {
+                  text: response,
+                  audioURL: audioURL
+              };
+              wss.broadcast(JSON.stringify(result));
+          });
+      });
+    } else {
+      console.log('Mensagem inválida, sem data.type');
+    }
   });
 });
 
