@@ -57,7 +57,7 @@ arduino.on('data', (data) => {
 function broadcast(message) {
   wss.clients.forEach(function each(client) {
     if (client.readyState === WebSocket.OPEN) {
-      client.send(data);
+      client.send(message);
     }
   });
 }
