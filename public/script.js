@@ -51,16 +51,29 @@ const startWebSocket = () => {
             resolve();
         };
         
-        socket.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            console.log("Mensagem recebida: ", data.text);
-            appendMessage(`Audio URL: ${data.audioURL}`);
-            appendMessage(`Pergunta: ${data.text}`);
-            displayWord(
-                data.text,
-                data.audioURL
-            );
-            stateManager.setState(states.DISPLAYING);
+        socket.onmessage = async (event) => {
+            let message = '';
+            if(event.data instanceof Blob) {
+                message = await event.data.text();
+            }else if(typeof event.data === 'string') {
+                message = event.data;
+            }else{
+                console.error("Tipo de mensagem não suportado: ", typeof event.data);
+                return;
+            }
+            const data = JSON.parse(message);
+            if(data.type === 'wordUpdate') {
+                console.log("Lista atualizada: ", data.words);
+            }else if(data.type === 'wordsConfirmed') {
+                console.log("Mensagem recebida: ", data.text);
+                appendMessage(`Audio URL: ${data.audioURL}`);
+                appendMessage(`Pergunta: ${data.text}`);
+                displayWord(
+                    data.text,
+                    data.audioURL
+                );
+                stateManager.setState(states.DISPLAYING);
+            }
         };
         
         socket.onerror = (error) => {

@@ -2,6 +2,7 @@ const express = require('express');
 const WebSocket = require('ws');
 const path = require('path');
 const ArduinoConnection = require('./arduino.js');
+const words = require('./public/palavras.json');
 
 require('dotenv').config();
 
@@ -32,7 +33,7 @@ wss.on('connection', (ws) => {
     if (data.type === 'wordUpdate') {
       broadcast(message);
     } else if(data.type === 'wordsConfirmed') {
-      AI(message.toString()).then((response) => {
+      AI(data.words.join(", ")).then((response) => {
           TTS(response).then((audioURL) => {
               console.log(`Pergunta gerada pela AI: ${response}`);
               const result = {
@@ -52,6 +53,20 @@ const arduino = new ArduinoConnection(SERIAL_PORT, BAUD_RATE);
 arduino.connect();
 arduino.on('data', (data) => {
   broadcast(data);
+  //vai sempre mandar ,,
+  //sendo uuid1,uuid2,uuid3
+  //deve retornar no mesmo formato, so que com palavras
+  /*
+  //TODO
+  let result = [];
+  data.split(',').forEach((uuid) => {
+    console.log(uuid);
+    words.findOne(obj => {
+      return obj.uuid1 === uuid || obj.uuid2 === uuid;
+    }
+  });
+  broadcast(JSON.stringify({type: 'wordUpdate', words: result}));
+  */
 });
 
 function broadcast(message) {
