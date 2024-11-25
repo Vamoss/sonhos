@@ -1,4 +1,4 @@
-var selectedWords = new Set();
+var selectedWords = new Array(3).fill('');
 
 /**
  * STATE MANAGER
@@ -105,17 +105,19 @@ function sendMessage(message) {
 }
 
 function sendWords() {
-    if(selectedWords.size > 0) {
-        let dataToSend = {type: 'wordUpdate', words: Array.from(selectedWords)};
+    let dataToSend = {type: 'wordUpdate', words: selectedWords};
+    sendMessage(JSON.stringify(dataToSend));
+    loading.start(() => {
+        dataToSend.type = 'wordsConfirmed';
         sendMessage(JSON.stringify(dataToSend));
-        loading.start(() => {
-            dataToSend.type = 'wordsConfirmed';
-            sendMessage(JSON.stringify(dataToSend));
-            stateManager.setState(states.WAITING);
-        });
-    }else{
-        loading.cancel();
-    }
+        stateManager.setState(states.WAITING);
+    });
+}
+
+function sendEmptyWord() {
+    loading.cancel();
+    let dataToSend = {type: 'wordUpdate', words: selectedWords};
+    sendMessage(JSON.stringify(dataToSend));
 }
 
 function appendMessage(message) {
@@ -221,7 +223,7 @@ function makeDraggable(dragItem) {
             dragItem.style.top = `${areaRect.top - container.getBoundingClientRect().top + dragAreaSize / 2 - draggableSize / 2}px`;
             area.setAttribute("data-occupied", "true");
             dragItem.setAttribute("data-occupied-area", areaIndex);
-            selectedWords.add(dragItem.getAttribute("data-word"));
+            selectedWords[areaIndex] = dragItem.getAttribute("data-word");
             words[words.findIndex(word => word.palavra === dragItem.getAttribute("data-word"))].audio.play();
             sendWords();
             snapped = true;
@@ -229,8 +231,19 @@ function makeDraggable(dragItem) {
         });
   
         if (!snapped) {
-          selectedWords.delete(dragItem.getAttribute("data-word"));
-          sendWords();
+          const index = selectedWords.indexOf(dragItem.getAttribute("data-word"));
+          if (index > -1) {
+            selectedWords[index] = '';
+          }
+          let empty = true;
+          selectedWords.forEach(word => {
+            empty &= word === '';
+          });
+          console.log(selectedWords, empty);
+          if(empty)
+            sendEmptyWord();
+          else
+            sendWords();
   
           const originalX = parseInt(dragItem.getAttribute("data-original-x"));
           const originalY = parseInt(dragItem.getAttribute("data-original-y"));
