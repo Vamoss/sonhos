@@ -1,7 +1,6 @@
 const express = require('express');
 const WebSocket = require('ws');
 const path = require('path');
-const ArduinoConnection = require('./arduino.js');
 const words = require('./public/palavras.json');
 
 require('dotenv').config();
@@ -47,26 +46,6 @@ wss.on('connection', (ws) => {
       console.log('Mensagem inválida, sem data.type');
     }
   });
-});
-
-const arduino = new ArduinoConnection(SERIAL_PORT, BAUD_RATE);
-arduino.connect();
-arduino.on('data', (data) => {
-  broadcast(data);
-  //vai sempre mandar ,,
-  //sendo uuid1,uuid2,uuid3
-  //deve retornar no mesmo formato, so que com palavras
-  /*
-  //TODO
-  let result = [];
-  data.split(',').forEach((uuid) => {
-    console.log(uuid);
-    words.findOne(obj => {
-      return obj.uuid1 === uuid || obj.uuid2 === uuid;
-    }
-  });
-  broadcast(JSON.stringify({type: 'wordUpdate', words: result}));
-  */
 });
 
 function broadcast(message) {
