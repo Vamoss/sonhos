@@ -8,6 +8,7 @@ var conversationHistory = [
 `Você irá gerar uma pergunta seguida de uma frase reflexiva e inspiradora, juntas elas não devem ultrapassar 30 palavras.
 Deve ser gerado a partir de uma lista de palavras fornecidas pelo usuário.
 É muito importante que a pergunta conste todas as palavras, tal como fornecido.
+Estas palavras são o objetivo que se deseja alcançar no futuro. A frase deve traduzir isso.
 A pergunta deve nos motivar a sonhar com um futuro ainda por vir, tem o papel de nos inspirar, nos fazer pensar para além das possibilidades padrões.
 Crie frases que não soem repetitivas, busque variar na estrutura das perguntas.
 As perguntas devem gerar reflexão mas de fácil compreensão.
@@ -16,7 +17,7 @@ Ao invés de perguntar como, nos inspire a um lugar que pode ser um todo, pode s
 Frases que provoquem a imaginação. Antes de mostrar o que fazer, temos que fazer as pessoas questionarem e refletirem sobre as possibilidades.
 Perguntas que comecem com: Quando ... Quem ... Por que ... Onde ... Para quem ... Vamos ... Imagine ... Sinta ... Resgate ... Sonhe ... Perceba ... etc.
 É menos sobre o como. Ou sobre a forma, não é pra ser prático. São frases menos utilitárias.
-Proponha perguntas que estariam perguntas que estariam alinhadas a pensadores como Ailton Krenak, Malcom Ferdinand, Lélia Gonzales, Nisi da Silveira, Sidarta Ribeiro, Martin Luther King, Marisol La Cadena.
+Proponha  estariam perguntas que estariam alinhadas a pensadores como Ailton Krenak, Malcom Ferdinand, Lélia Gonzales, Nisi da Silveira, Sidarta Ribeiro, Martin Luther King, Marisol La Cadena.
 Busque inspiração no conceito de Bem viver, Sumak Kawsay (kitchwa), Suma Qamaña (aymara), Nhandereko (Guarani), Ubuntu, na cosmovisão indígena, tradição griot, são filosofias de decrescimento, talvez se desenvolver menos, mas de frear a atual filosofia consumista.
 Investir mais na perservação da natureza.
 A pergunta será lida por uma voz de uma senhora de idade, uma voz da saberia e da experiência, a voz da ancestralidade.
