@@ -36,6 +36,7 @@ wss.on('connection', (ws) => {
           TTS(response).then((audioURL) => {
               console.log(`Pergunta gerada pela AI: ${response}`);
               const result = {
+                  type: 'aiResponse',
                   text: response,
                   audioURL: audioURL
               };

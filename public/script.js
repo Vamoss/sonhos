@@ -61,11 +61,11 @@ const startWebSocket = () => {
                 console.error("Tipo de mensagem não suportado: ", typeof event.data);
                 return;
             }
+            console.log("Mensagem recebida: ", message);
             const data = JSON.parse(message);
             if(data.type === 'wordUpdate') {
                 console.log("Lista atualizada: ", data.words);
-            }else if(data.type === 'wordsConfirmed') {
-                console.log("Mensagem recebida: ", data.text);
+            }else if(data.type === 'aiResponse') {
                 appendMessage(`Audio URL: ${data.audioURL}`);
                 appendMessage(`Pergunta: ${data.text}`);
                 displayWord(
