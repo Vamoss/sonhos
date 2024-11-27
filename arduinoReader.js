@@ -6,7 +6,7 @@ const words = require('./public/palavras.json');
 require('dotenv').config();
 
 const WEBSOCKET_URL = 'wss://sonhos-ptplw.ondigitalocean.app';
-const SERIAL_PORT = process.env.SERIAL_PORT || 'COM3';
+const SERIAL_PORT = process.env.SERIAL_PORT || 'COM12';
 const BAUD_RATE = process.env.SERIAL_PORT || 9600;
 
 // Conexão com o WebSocket online
@@ -37,13 +37,14 @@ connectWebSocket();
 const arduino = new ArduinoConnection(SERIAL_PORT, BAUD_RATE);
 arduino.connect();
 arduino.on('data', (data) => {
+  console.log('Dados recebidos do Arduino:', data);
   //vai sempre mandar ,,
   //sendo uuid1,uuid2,uuid3
   //deve retornar no mesmo formato, so que com palavras
   let result = data.split(',').map((uuid) => {
-    let obj = words.findOne(obj => obj.codigo1 === uuid || obj.codigo2 === uuid);
+    let obj = words.find(obj => obj.codigo1 === uuid || obj.codigo2 === uuid);
     if(obj)
-      return obj.word;
+      return obj.palavra;
     else
       return "";
   });

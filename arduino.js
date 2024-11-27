@@ -1,11 +1,33 @@
-const SerialPort = require('serialport');
-const Readline = require('@serialport/parser-readline');
+const { SerialPort } = require('serialport');
+const { ReadlineParser } = require('@serialport/parser-readline');
 const EventEmitter = require('events');
 // const { simulateArduino } = require('./simulator');
+
+
+SerialPort.list()
+  .then((ports) => {
+    if (ports.length === 0) {
+      console.log('Nenhuma porta serial encontrada.');
+    } else {
+      console.log('Portas disponíveis:');
+      ports.forEach((port, index) => {
+        console.log(`${index + 1}: ${port.path}`);
+        console.log(`  Manufacturer: ${port.manufacturer || 'Desconhecido'}`);
+        console.log(`  Serial Number: ${port.serialNumber || 'Desconhecido'}`);
+        console.log(`  PnP ID: ${port.pnpId || 'Desconhecido'}`);
+        console.log('-----------------------------------');
+      });
+    }
+  })
+  .catch((err) => {
+    console.error('Erro ao listar portas seriais:', err.message);
+  });
+
 
 class ArduinoConnection extends EventEmitter {
   constructor(portName, baudRate = 9600) {
     super();
+    console.log(portName);
     this.portName = portName;
     this.baudRate = baudRate;
     this.arduinoConnected = false;
@@ -14,8 +36,8 @@ class ArduinoConnection extends EventEmitter {
 
   connect() {
     try {
-      this.port = new SerialPort(this.portName, { baudRate: this.baudRate });
-      const parser = this.port.pipe(new Readline({ delimiter: '\r\n' }));
+      this.port = new SerialPort({ path: this.portName, baudRate: this.baudRate });
+      const parser = this.port.pipe(new ReadlineParser({ delimiter: '\r\n' }));
 
       this.port.on('open', () => {
         this.arduinoConnected = true;
@@ -40,7 +62,7 @@ class ArduinoConnection extends EventEmitter {
       });
 
     } catch (error) {
-      //console.error('Erro ao conectar ao Arduino:', error.message);
+      console.error('Erro ao conectar ao Arduino:', error.message);
       this.arduinoConnected = false;
       this.attemptReconnection();
     }
