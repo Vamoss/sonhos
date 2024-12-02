@@ -1,17 +1,15 @@
 const express = require('express');
 const WebSocket = require('ws');
 const path = require('path');
-const words = require('./public/palavras.json');
 
 require('dotenv').config();
 
 const AI = require("./ai.js");
 const TTS = require("./tts.js");
+const { saveData } = require('./database.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const SERIAL_PORT = process.env.SERIAL_PORT || 'COM3';
-const BAUD_RATE = process.env.SERIAL_PORT || 9600;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -40,6 +38,7 @@ wss.on('connection', (ws) => {
                   text: response,
                   audioURL: audioURL
               };
+              saveData(data.words[0], data.words[1], data.words[2], response);
               broadcast(JSON.stringify(result));
           });
       });
