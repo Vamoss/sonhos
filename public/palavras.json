@@ -1,11 +1,11 @@
 [
     { "codigo1": "535E6929", "codigo2": "035DC127", "palavra": "Amor", "audioUrl": "audios/palavras/amor.mp3" },
-    { "codigo1": "E3ADDA28", "codigo2": "44F2C027", "palavra": "Natureza", "audioUrl": "audios/palavras/natureza.mp3" },
+    { "codigo1": "E3ADDA28", "codigo2": "43F2C027", "palavra": "Natureza", "audioUrl": "audios/palavras/natureza.mp3" },
     { "codigo1": "9356BD27", "codigo2": "2307C627", "palavra": "Saúde", "audioUrl": "audios/palavras/saude.mp3" },
     { "codigo1": "43FEA129", "codigo2": "53BF6129", "palavra": "Educação", "audioUrl": "audios/palavras/educacao.mp3" },
     { "codigo1": "03B4BD27", "codigo2": "13401B2A", "palavra": "Justiça social", "audioUrl": "audios/palavras/justica_social.mp3" },
     { "codigo1": "A3E37728", "codigo2": "0382BE27", "palavra": "Coletividade", "audioUrl": "audios/palavras/coletividade.mp3" },
-    { "codigo1": "F362322A", "codigo2": "13DC6C29", "palavra": "Sustentabilidade", "audioUrl": "audios/palavras/sustentabilidade.mp3" },
+    { "codigo1": "13DC6C29", "codigo2": "B3DF5BA9", "palavra": "Sustentabilidade", "audioUrl": "audios/palavras/sustentabilidade.mp3" },
     { "codigo1": "D33FE427", "codigo2": "73A0E727", "palavra": "Diversidade", "audioUrl": "audios/palavras/diversidade.mp3" },
     { "codigo1": "63D3A128", "codigo2": "83AD122A", "palavra": "Liberdade", "audioUrl": "audios/palavras/liberdade.mp3" },
     { "codigo1": "D3B1272A", "codigo2": "E33C6628", "palavra": "Cooperação", "audioUrl": "audios/palavras/cooperacao.mp3" },
