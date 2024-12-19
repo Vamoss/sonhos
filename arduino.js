@@ -1,7 +1,6 @@
 const { SerialPort } = require('serialport');
 const { ReadlineParser } = require('@serialport/parser-readline');
 const EventEmitter = require('events');
-// const { simulateArduino } = require('./simulator');
 
 
 SerialPort.list()
@@ -42,6 +41,7 @@ class ArduinoConnection extends EventEmitter {
       this.port.on('open', () => {
         this.arduinoConnected = true;
         console.log('Conectado ao Arduino');
+        this.emit('open');
       });
 
       parser.on('data', (data) => {
@@ -52,18 +52,21 @@ class ArduinoConnection extends EventEmitter {
       this.port.on('close', () => {
         console.log('Conexão com Arduino perdida. Tentando reconectar...');
         this.arduinoConnected = false;
+        this.emit('close');
         this.attemptReconnection();
       });
 
       this.port.on('error', (err) => {
         console.error('Erro de conexão com o Arduino:', err.message);
         this.arduinoConnected = false;
+        this.emit('error', err.message);
         this.attemptReconnection();
       });
 
     } catch (error) {
       console.error('Erro ao conectar ao Arduino:', error.message);
       this.arduinoConnected = false;
+      this.emit('error', error.message);
       this.attemptReconnection();
     }
   }

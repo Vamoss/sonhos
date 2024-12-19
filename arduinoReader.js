@@ -2,6 +2,9 @@ const WebSocket = require('ws');
 const path = require('path');
 const ArduinoConnection = require('./arduino.js');
 const words = require('./public/palavras.json');
+const { appendLog, startConnectionCheck } = require('./log-local.js');
+
+startConnectionCheck();
 
 require('dotenv').config();
 
@@ -18,14 +21,17 @@ function connectWebSocket() {
 
     ws.on('open', () => {
         console.log('Conectado ao WebSocket online.');
+        appendLog('websocket', 'connected');
     });
 
     ws.on('error', (error) => {
         console.error('Erro na conexão WebSocket:', error);
+        appendLog('websocket', 'error', error.message);
     });
 
     ws.on('close', () => {
         console.log('Conexão WebSocket encerrada. Tentando reconectar...');
+        appendLog('websocket', 'disconnected');
         setTimeout(connectWebSocket, 500);
     });
 }
@@ -35,7 +41,6 @@ connectWebSocket();
 
 // Configuração do Arduino
 const arduino = new ArduinoConnection(SERIAL_PORT, BAUD_RATE);
-arduino.connect();
 arduino.on('data', (data) => {
   console.log('Dados recebidos do Arduino:', data);
   //vai sempre mandar ,,
@@ -56,3 +61,13 @@ arduino.on('data', (data) => {
     console.error('WebSocket não está conectado.');
   }
 });
+arduino.on('open', (data) => {
+  appendLog('arduino', 'connected');
+});
+arduino.on('close', (data) => {
+  appendLog('arduino', 'disconnected');
+});
+arduino.on('error', (data) => {
+  //appendLog('arduino', 'error', data);
+});
+arduino.connect();
